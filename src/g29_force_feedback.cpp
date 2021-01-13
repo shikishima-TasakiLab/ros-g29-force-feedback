@@ -62,16 +62,17 @@ G29ForceFeedback::G29ForceFeedback():
     m_pid_mode(0)
 {
     ros::NodeHandle n;
+    ros::NodeHandle pnh("~");
     sub_target = n.subscribe("/ff_target", 1, &G29ForceFeedback::targetCallback, this);
 
-    n.getParam("device_name", m_device_name);
-    n.getParam("Kp", m_Kp);
-    n.getParam("Ki", m_Ki);
-    n.getParam("Kd", m_Kd);
-    n.getParam("offset", m_offset);
-    n.getParam("max_force", m_max_force);
-    n.getParam("min_force", m_min_force);
-    n.getParam("pub_rate", m_pub_rate);
+    pnh.getParam("device_name", m_device_name);
+    pnh.getParam("Kp", m_Kp);
+    pnh.getParam("Ki", m_Ki);
+    pnh.getParam("Kd", m_Kd);
+    pnh.getParam("offset", m_offset);
+    pnh.getParam("max_force", m_max_force);
+    pnh.getParam("min_force", m_min_force);
+    pnh.getParam("pub_rate", m_pub_rate);
 
     initFfDevice();
 
